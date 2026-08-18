@@ -35,4 +35,4 @@ services:
       - ./script.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
 
 volumes:
-  veterinaria_pgdata
+  veterinaria_pgdata:
