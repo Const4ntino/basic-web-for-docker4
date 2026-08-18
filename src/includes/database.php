@@ -8,11 +8,11 @@ class Database
     public static function getConnection(): PDO
     {
         if (self::$instance === null):
-            $host = $_ENV('DB_HOST');
-            $port = $_ENV('DB_PORT');
-            $dbName = $_ENV('DB_NAME');
-            $user = $_ENV('DB_USER');
-            $password = $_ENV('DB_PASSWORD');
+            $host = $_ENV('DB_HOST') ?: '127.0.0.1';
+            $port = $_ENV('DB_PORT') ?: '5432';
+            $dbName = $_ENV('DB_NAME') ?: 'veterinaria';
+            $user = $_ENV('DB_USER') ?: 'postgres';
+            $password = $_ENV('DB_PASSWORD') ?: 'postgres';
             
             $dsn = "pgsql:host={$host};port={$port};dbname={$dbName};options='--client_encoding=UTF8'";
 
