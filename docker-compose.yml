@@ -15,7 +15,7 @@ services:
       dockerfile: ./php/Dockerfile
     restart: unless-stopped
     environment:
-      - DB_HOST=${DB_NAME} # En este caso hago uso de 'db' que es el nombre del servicio asociado a postgres
+      - DB_HOST=${DB_HOST} # En este caso hago uso de 'db' que es el nombre del servicio asociado a postgres
       - DB_PORT=${DB_PORT} # Hago uso de 5432 porque es el puerto por defecto que usa postgresql
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
