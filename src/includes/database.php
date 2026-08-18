@@ -23,7 +23,6 @@ class Database
             ];
 
             try {
-                echo $dsn;
                 self::$instance = new PDO($dsn, $user, $password, $options);
             } catch (PDOException $e) {
                 error_log("Database connection error: " . $e->getMessage());
