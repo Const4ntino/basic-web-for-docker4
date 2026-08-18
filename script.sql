@@ -1,6 +1,4 @@
-CREATE DATABASE veterinaria;
-
-CREATE TABLE mascotas (
+CREATE TABLE IF NOT EXISTS mascotas (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(20) NOT NULL,
     tipo VARCHAR(40) NOT NULL,
