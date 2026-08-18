@@ -1,16 +1,38 @@
 services:
   nginx:
-    image: nginx:alpine
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
     restart: unless-stopped
     ports:
       - "8083:80"
-    volumes:
-      - ./src:/var/www/html
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
 
   php:
-    build: ./php
+    build: 
+      context: .
+      dockerfile: ./php/Dockerfile
     restart: unless-stopped
-    
+    environment:
+      - DB_HOST=${DB_NAME} # En este caso hago uso de 'db' que es el nombre del servicio asociado a postgres
+      - DB_PORT=${DB_PORT} # Hago uso de 5432 porque es el puerto por defecto que usa postgresql
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - bd
+
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - veterinaria_pgdata:/var/lib/postgresql/data
+      - ./script.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+
+volumes:
+  veterinaria_pgdata
